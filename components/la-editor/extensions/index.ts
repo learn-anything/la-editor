@@ -67,7 +67,7 @@ export const createExtensions = ({ placeholder = 'Start typing...' }: ExtensionO
   SlashCommand,
   Focus,
   Typography,
-  // Selection,
+  Selection,
   Placeholder.configure({
     includeChildren: false,
     showOnlyCurrent: true,
