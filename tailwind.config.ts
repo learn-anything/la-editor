@@ -10,6 +10,7 @@ const config = {
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
   ],
+  safelist: ['ProseMirror'],
   prefix: '',
   theme: {
     container: {
