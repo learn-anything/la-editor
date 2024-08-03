@@ -6,8 +6,24 @@
   @apply list-decimal;
 }
 
+.la-editor .ProseMirror ol ol {
+  list-style: lower-alpha;
+}
+
+.la-editor .ProseMirror ol ol ol {
+  list-style: lower-roman;
+}
+
 .la-editor .ProseMirror ul {
-  @apply list-disc;
+  list-style: disc;
+}
+
+.la-editor .ProseMirror ul ul {
+  list-style: circle;
+}
+
+.la-editor .ProseMirror ul ul ul {
+  list-style: square;
 }
 
 .la-editor .ProseMirror ul[data-type='taskList'] {
