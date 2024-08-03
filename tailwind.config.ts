@@ -10,7 +10,7 @@ const config = {
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
   ],
-  safelist: ['ProseMirror'],
+  safelist: ['dark', 'ProseMirror', 'la-editor'],
   prefix: '',
   theme: {
     container: {
