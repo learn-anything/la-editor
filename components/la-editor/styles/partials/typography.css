@@ -1,0 +1,29 @@
+.la-editor .ProseMirror {
+  .heading-node {
+    @apply relative font-semibold;
+  }
+
+  .heading-node:first-child {
+    @apply mt-0;
+  }
+
+  h1 {
+    @apply mb-4 mt-[46px] text-[1.375rem] leading-7 tracking-[-0.004375rem];
+  }
+
+  h2 {
+    @apply mb-3.5 mt-8 text-[1.1875rem] leading-7 tracking-[0.003125rem];
+  }
+
+  h3 {
+    @apply mb-3 mt-6 text-[1.0625rem] leading-6 tracking-[0.00625rem];
+  }
+
+  a.link {
+    @apply cursor-pointer text-primary;
+
+    &:hover {
+      @apply underline;
+    }
+  }
+}
