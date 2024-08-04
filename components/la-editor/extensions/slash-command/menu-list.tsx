@@ -8,7 +8,7 @@ import { Separator } from '@/components/ui/separator'
 import { Command, MenuListProps } from './types'
 import { getShortcutKeys } from '../../lib/utils'
 import { Icon } from '../../components/ui/icon'
-import { Surface } from '../../components/ui/surface'
+import { PopoverWrapper } from '../../components/ui/popover-wrapper'
 import { Shortcut } from '../../components/ui/shortcut'
 
 export const MenuList = React.forwardRef((props: MenuListProps, ref) => {
@@ -120,7 +120,7 @@ export const MenuList = React.forwardRef((props: MenuListProps, ref) => {
   }
 
   return (
-    <Surface ref={scrollContainer} className="flex max-h-[min(80vh,24rem)] flex-col overflow-auto p-1">
+    <PopoverWrapper ref={scrollContainer} className="flex max-h-[min(80vh,24rem)] flex-col overflow-auto p-1">
       {props.items.map((group, groupIndex: number) => (
         <React.Fragment key={group.title}>
           {group.commands.map((command: Command, commandIndex: number) => (
@@ -146,7 +146,7 @@ export const MenuList = React.forwardRef((props: MenuListProps, ref) => {
           {groupIndex !== props.items.length - 1 && <Separator className="my-1.5" />}
         </React.Fragment>
       ))}
-    </Surface>
+    </PopoverWrapper>
   )
 })
 

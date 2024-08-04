@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { EditorContent, useEditor } from '@tiptap/react'
-import { TextMenu } from './components/text-menu'
+import { BubbleMenu } from './components/bubble-menu'
 import { createExtensions } from './extensions'
 import './styles/index.css'
 import { cn } from '@/lib/utils'
@@ -16,7 +16,6 @@ export const LAEditor = React.forwardRef<HTMLDivElement, LAEditorProps>(
     const editor = useEditor(
       {
         autofocus: false,
-        immediatelyRender: false,
         extensions: createExtensions({ placeholder }),
         editorProps: {
           attributes: {
@@ -41,7 +40,7 @@ export const LAEditor = React.forwardRef<HTMLDivElement, LAEditorProps>(
     return (
       <div className={cn('la-editor relative flex h-full w-full grow flex-col', className)} {...props} ref={ref}>
         <EditorContent editor={editor} />
-        <TextMenu editor={editor} />
+        <BubbleMenu editor={editor} />
       </div>
     )
   },

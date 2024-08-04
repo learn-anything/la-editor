@@ -1,21 +1,21 @@
 import { useTextmenuCommands } from '../../hooks/use-text-menu-commands'
-import { Surface } from '../ui/surface'
+import { PopoverWrapper } from '../ui/popover-wrapper'
 import { useTextmenuStates } from '../../hooks/use-text-menu-states'
-import { BubbleMenu, Editor } from '@tiptap/react'
+import { BubbleMenu as TiptapBubbleMenu, Editor } from '@tiptap/react'
 import { ToolbarButton } from '../ui/toolbar-button'
 import { Icon } from '../ui/icon'
 import * as React from 'react'
 
-export type TextMenuProps = {
+export type BubbleMenuProps = {
   editor: Editor
 }
 
-export const TextMenu = ({ editor }: TextMenuProps) => {
+export const BubbleMenu = ({ editor }: BubbleMenuProps) => {
   const commands = useTextmenuCommands(editor)
   const states = useTextmenuStates(editor)
 
   return (
-    <BubbleMenu
+    <TiptapBubbleMenu
       tippyOptions={{
         // duration: [0, 999999],
         popperOptions: { placement: 'top-start' },
@@ -25,7 +25,7 @@ export const TextMenu = ({ editor }: TextMenuProps) => {
       shouldShow={states.shouldShow}
       updateDelay={100}
     >
-      <Surface className="flex items-center overflow-x-auto p-1">
+      <PopoverWrapper className="flex items-center overflow-x-auto p-1">
         <div className="space-x-1">
           <ToolbarButton value="bold" aria-label="Bold" onPressedChange={commands.onBold} isActive={states.isBold}>
             <Icon name="Bold" strokeWidth={2.5} />
@@ -52,7 +52,9 @@ export const TextMenu = ({ editor }: TextMenuProps) => {
             <Icon name="List" strokeWidth={2.5} />
           </ToolbarButton> */}
         </div>
-      </Surface>
-    </BubbleMenu>
+      </PopoverWrapper>
+    </TiptapBubbleMenu>
   )
 }
+
+export default BubbleMenu

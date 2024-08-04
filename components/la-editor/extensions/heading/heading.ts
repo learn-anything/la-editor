@@ -10,6 +10,7 @@ export const Heading = TiptapHeading.extend({
   addOptions() {
     return {
       ...this.parent?.(),
+      levels: [1, 2, 3] as Level[],
       HTMLAttributes: {
         class: 'heading-node',
       },
