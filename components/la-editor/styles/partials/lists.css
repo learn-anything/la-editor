@@ -1,5 +1,5 @@
-.la-editor .ProseMirror {
-  @apply text-base;
+.la-editor div.tiptap p {
+  @apply text-[var(--la-font-size-regular)];
 }
 
 .la-editor .ProseMirror ol {
