@@ -2,7 +2,7 @@
  * Add heading level validation. decimal (0-9)
  * Add heading class to heading element
  */
-import { mergeAttributes } from '@tiptap/core'
+import { mergeAttributes } from '@tiptap/react'
 import TiptapHeading from '@tiptap/extension-heading'
 import type { Level } from '@tiptap/extension-heading'
 
@@ -10,7 +10,7 @@ export const Heading = TiptapHeading.extend({
   addOptions() {
     return {
       ...this.parent?.(),
-      levels: [1, 2, 3] as Level[],
+      levels: [1, 2, 3, 4, 5, 6] as Level[],
       HTMLAttributes: {
         class: 'heading-node',
       },
