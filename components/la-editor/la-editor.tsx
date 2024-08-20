@@ -1,51 +1,40 @@
-'use client'
-
-import * as React from 'react'
-import { EditorContent, useEditor } from '@tiptap/react'
+import React, { useImperativeHandle } from 'react'
+import { EditorContent } from '@tiptap/react'
+import { Editor, Content } from '@tiptap/react'
 import { BubbleMenu } from './components/bubble-menu'
-import { createExtensions } from './extensions'
 import './styles/index.css'
 import { cn } from '@/lib/utils'
-export interface LAEditorProps extends React.HTMLProps<HTMLDivElement> {
-  placeholder?: string
-  editorClassName?: string
+import { useLaEditor, UseLaEditorProps } from './hooks/use-la-editor'
+
+export interface LaEditorProps extends UseLaEditorProps {
+  value?: Content
+  className?: string
+  editorContentClassName?: string
 }
 
-export const LAEditor = React.forwardRef<HTMLDivElement, LAEditorProps>(
-  ({ placeholder, editorClassName, className, ...props }, ref) => {
-    const editor = useEditor(
-      {
-        autofocus: false,
-        extensions: createExtensions({ placeholder }),
-        editorProps: {
-          attributes: {
-            autocomplete: 'off',
-            autocorrect: 'off',
-            autocapitalize: 'off',
-            class: editorClassName || '',
-          },
-        },
-        onUpdate: props => {
-          console.log('onUpdate', props.editor.getHTML(), props.editor.getJSON())
-        },
-        content: ``,
-      },
-      [],
-    )
+export interface LAEditorRef {
+  editor: Editor | null
+}
+
+export const LaEditor = React.forwardRef<LAEditorRef, LaEditorProps>(
+  ({ value, className, editorContentClassName, ...props }, ref) => {
+    const editor = useLaEditor({ value, ...props })
+
+    useImperativeHandle(ref, () => ({ editor }), [editor])
 
     if (!editor) {
       return null
     }
 
     return (
-      <div className={cn('la-editor relative flex h-full w-full grow flex-col', className)} {...props} ref={ref}>
-        <EditorContent editor={editor} />
+      <div className={cn('la-editor-container', className)}>
+        <EditorContent editor={editor} className={cn('la-editor', editorContentClassName)} />
         <BubbleMenu editor={editor} />
       </div>
     )
   },
 )
 
-LAEditor.displayName = 'LAEditor'
+LaEditor.displayName = 'LaEditor'
 
-export default LAEditor
+export default LaEditor
