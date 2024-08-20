@@ -1,9 +1,11 @@
-import { LAEditor } from '@/components/la-editor'
+import { HomePageComponent } from '@/components/custom/home-page-component'
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <main className="mx-auto max-w-7xl p-6 py-12 sm:px-6 lg:px-8">
-      <LAEditor placeholder="Add description..." editorClassName="min-h-72" />
-    </main>
+    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-20 lg:px-8">
+      <div className="mx-auto max-w-3xl">
+        <HomePageComponent />
+      </div>
+    </div>
   )
 }
