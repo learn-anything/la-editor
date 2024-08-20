@@ -6,7 +6,7 @@ import { Content, EditorContent, useEditor } from '@tiptap/react'
 import { EditorView } from '@tiptap/pm/view'
 import { Editor } from '@tiptap/react'
 import { toast } from 'sonner'
-import { initialContent } from '@/components/la-editor/lib/utils/data/initial-content'
+import { initialContent } from '@/lib/data/initial-content'
 import { StarterKit } from '@tiptap/starter-kit'
 import Placeholder from '@tiptap/extension-placeholder'
 
