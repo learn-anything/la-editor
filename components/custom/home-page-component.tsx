@@ -8,7 +8,7 @@ import { Editor } from '@tiptap/react'
 import { toast } from 'sonner'
 import { initialContent } from '@/lib/data/initial-content'
 import { StarterKit } from '@tiptap/starter-kit'
-import Placeholder from '@tiptap/extension-placeholder'
+import { Placeholder } from '@tiptap/extension-placeholder'
 
 const TITLE_PLACEHOLDER = 'Page title'
 
@@ -143,6 +143,7 @@ export const HomePageComponent = () => {
       <LaEditor
         ref={contentEditorRef}
         value={content}
+        immediatelyRender={false}
         editorClassName="p-4 -mx-4"
         editorContentClassName="flex flex-col"
         placeholder="Add content..."
