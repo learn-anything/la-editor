@@ -1,4 +1,4 @@
-import { isTextSelection } from '@tiptap/core'
+import { isTextSelection } from '@tiptap/react'
 import { Editor } from '@tiptap/react'
 
 export const isTextSelected = ({ editor }: { editor: Editor }) => {

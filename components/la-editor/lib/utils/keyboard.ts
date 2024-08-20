@@ -1,18 +1,15 @@
 import { isMacOS } from './platform'
 
-export const getShortcutKey = (key: string) => {
+export function getShortcutKey(key: string) {
   const lowercaseKey = key.toLowerCase()
-  const macOS = isMacOS()
-
-  switch (lowercaseKey) {
-    case 'mod':
-      return macOS ? '⌘' : 'Ctrl'
-    case 'alt':
-      return macOS ? '⌥' : 'Alt'
-    case 'shift':
-      return macOS ? '⇧' : 'Shift'
-    default:
-      return key
+  if (lowercaseKey === 'mod') {
+    return isMacOS() ? { symbol: '⌘', readable: 'Command' } : { symbol: 'Ctrl', readable: 'Control' }
+  } else if (lowercaseKey === 'alt') {
+    return isMacOS() ? { symbol: '⌥', readable: 'Option' } : { symbol: 'Alt', readable: 'Alt' }
+  } else if (lowercaseKey === 'shift') {
+    return isMacOS() ? { symbol: '⇧', readable: 'Shift' } : { symbol: 'Shift', readable: 'Shift' }
+  } else {
+    return { symbol: key, readable: key }
   }
 }
 
