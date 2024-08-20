@@ -23,8 +23,6 @@ export const HomePageComponent = () => {
     setContent(content)
   }, [])
 
-  console.log('content', content)
-
   const handleTitleBlur = useCallback(
     (editor: Editor) => {
       const newTitle = editor.getText().trim()
@@ -100,19 +98,15 @@ export const HomePageComponent = () => {
         bulletList: false,
         code: false,
         codeBlock: false,
-        // document: false,
         dropcursor: false,
         gapcursor: false,
         hardBreak: false,
         heading: false,
-        // history: false,
         horizontalRule: false,
         italic: false,
         listItem: false,
         orderedList: false,
-        // paragraph: false,
         strike: false,
-        // text: false,
       }),
       Placeholder.configure({ placeholder: () => TITLE_PLACEHOLDER }),
     ],
