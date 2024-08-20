@@ -2,7 +2,7 @@ import { NodeViewContent, Editor, NodeViewWrapper } from '@tiptap/react'
 import { Icon } from '../../../components/ui/icon'
 import { useCallback } from 'react'
 import { Node as ProseMirrorNode } from '@tiptap/pm/model'
-import { Node } from '@tiptap/core'
+import { Node } from '@tiptap/react'
 
 interface TaskItemProps {
   editor: Editor

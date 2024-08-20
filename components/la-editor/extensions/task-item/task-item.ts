@@ -1,5 +1,5 @@
 import { ReactNodeViewRenderer } from '@tiptap/react'
-import { mergeAttributes } from '@tiptap/core'
+import { mergeAttributes } from '@tiptap/react'
 import { TaskItemView } from './components/task-item-view'
 import { TaskItem as TiptapTaskItem } from '@tiptap/extension-task-item'
 
