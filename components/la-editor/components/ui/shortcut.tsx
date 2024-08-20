@@ -32,7 +32,7 @@ const ShortcutKey = React.forwardRef<HTMLSpanElement, ShortcutKeyProps>(({ class
       {...props}
       ref={ref}
     >
-      {getShortcutKey(shortcut)}
+      {getShortcutKey(shortcut).symbol}
     </kbd>
   )
 })
