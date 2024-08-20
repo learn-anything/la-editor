@@ -1,4 +1,4 @@
-import { Editor, Extension } from '@tiptap/core'
+import { Editor, Extension } from '@tiptap/react'
 import { ReactRenderer } from '@tiptap/react'
 import Suggestion, { SuggestionProps, SuggestionKeyDownProps } from '@tiptap/suggestion'
 import { PluginKey } from '@tiptap/pm/state'
@@ -7,12 +7,13 @@ import tippy from 'tippy.js'
 import { GROUPS } from './groups'
 import { MenuList } from './menu-list'
 
-const EXTENSION_NAME = 'slashCommand'
+const extensionName = 'slashCommand'
 
 let popup: any
 
 export const SlashCommand = Extension.create({
-  name: EXTENSION_NAME,
+  name: extensionName,
+
   priority: 200,
 
   onCreate() {
@@ -25,7 +26,12 @@ export const SlashCommand = Extension.create({
       offset: [16, 8],
       popperOptions: {
         strategy: 'fixed',
-        modifiers: [{ name: 'flip', enabled: false }],
+        modifiers: [
+          {
+            name: 'flip',
+            enabled: false,
+          },
+        ],
       },
     })
   },
@@ -37,13 +43,13 @@ export const SlashCommand = Extension.create({
         char: '/',
         allowSpaces: true,
         startOfLine: true,
-        pluginKey: new PluginKey(EXTENSION_NAME),
-
+        pluginKey: new PluginKey(extensionName),
         allow: ({ state, range }) => {
           const $from = state.doc.resolve(range.from)
           const isRootDepth = $from.depth === 1
           const isParagraph = $from.parent.type.name === 'paragraph'
           const isStartOfNode = $from.parent.textContent?.charAt(0) === '/'
+          // TODO
           const isInColumn = this.editor.isActive('column')
 
           const afterContent = $from.parent.textContent?.substring($from.parent.textContent?.indexOf('/'))
@@ -54,7 +60,6 @@ export const SlashCommand = Extension.create({
             isValidAfterContent
           )
         },
-
         command: ({ editor, props }: { editor: Editor; props: any }) => {
           const { view, state } = editor
           const { $head, $from } = view.state.selection
@@ -70,9 +75,8 @@ export const SlashCommand = Extension.create({
           props.action(editor)
           view.focus()
         },
-
         items: ({ query }: { query: string }) => {
-          return GROUPS.map(group => ({
+          const withFilteredCommands = GROUPS.map(group => ({
             ...group,
             commands: group.commands
               .filter(item => {
@@ -81,21 +85,36 @@ export const SlashCommand = Extension.create({
 
                 if (item.aliases) {
                   const aliases = item.aliases.map(alias => alias.toLowerCase().trim())
+
                   return labelNormalized.includes(queryNormalized) || aliases.includes(queryNormalized)
                 }
 
                 return labelNormalized.includes(queryNormalized)
               })
-              .filter(command => (command.shouldBeHidden ? !command.shouldBeHidden(this.editor) : true))
-              .map(command => ({
-                ...command,
-                isEnabled: true,
-              })),
-          })).filter(group => group.commands.length > 0)
-        },
+              .filter(command => (command.shouldBeHidden ? !command.shouldBeHidden(this.editor) : true)),
+          }))
 
+          const withoutEmptyGroups = withFilteredCommands.filter(group => {
+            if (group.commands.length > 0) {
+              return true
+            }
+
+            return false
+          })
+
+          const withEnabledSettings = withoutEmptyGroups.map(group => ({
+            ...group,
+            commands: group.commands.map(command => ({
+              ...command,
+              isEnabled: true,
+            })),
+          }))
+
+          return withEnabledSettings
+        },
         render: () => {
           let component: any
+
           let scrollHandler: (() => void) | null = null
 
           return {
@@ -106,17 +125,18 @@ export const SlashCommand = Extension.create({
               })
 
               const { view } = props.editor
+
               const editorNode = view.dom as HTMLElement
 
               const getReferenceClientRect = () => {
                 if (!props.clientRect) {
-                  return props.editor.storage[EXTENSION_NAME].rect
+                  return props.editor.storage[extensionName].rect
                 }
 
                 const rect = props.clientRect()
 
                 if (!rect) {
-                  return props.editor.storage[EXTENSION_NAME].rect
+                  return props.editor.storage[extensionName].rect
                 }
 
                 let yPos = rect.y
@@ -126,6 +146,7 @@ export const SlashCommand = Extension.create({
                   yPos = rect.y - diff
                 }
 
+                // Account for when the editor is bound inside a container that doesn't go all the way to the edge of the screen
                 const editorXOffset = editorNode.getBoundingClientRect().x
                 return new DOMRect(rect.x, yPos, rect.width, rect.height)
               }
@@ -151,19 +172,21 @@ export const SlashCommand = Extension.create({
               component.updateProps(props)
 
               const { view } = props.editor
+
               const editorNode = view.dom as HTMLElement
 
               const getReferenceClientRect = () => {
                 if (!props.clientRect) {
-                  return props.editor.storage[EXTENSION_NAME].rect
+                  return props.editor.storage[extensionName].rect
                 }
 
                 const rect = props.clientRect()
 
                 if (!rect) {
-                  return props.editor.storage[EXTENSION_NAME].rect
+                  return props.editor.storage[extensionName].rect
                 }
 
+                // Account for when the editor is bound inside a container that doesn't go all the way to the edge of the screen
                 return new DOMRect(rect.x, rect.y, rect.width, rect.height)
               }
 
@@ -175,7 +198,8 @@ export const SlashCommand = Extension.create({
 
               view.dom.parentElement?.addEventListener('scroll', scrollHandler)
 
-              props.editor.storage[EXTENSION_NAME].rect = props.clientRect
+              // eslint-disable-next-line no-param-reassign
+              props.editor.storage[extensionName].rect = props.clientRect
                 ? getReferenceClientRect()
                 : {
                     width: 0,
@@ -193,6 +217,7 @@ export const SlashCommand = Extension.create({
             onKeyDown(props: SuggestionKeyDownProps) {
               if (props.event.key === 'Escape') {
                 popup?.[0].hide()
+
                 return true
               }
 
