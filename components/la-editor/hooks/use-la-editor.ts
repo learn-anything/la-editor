@@ -20,6 +20,7 @@ import {
   TrailingNode,
   TextStyle,
   Placeholder,
+  SearchAndReplace,
 } from '../extensions'
 
 export interface UseLaEditorProps extends UseEditorOptions {
@@ -53,6 +54,7 @@ const createExtensions = (placeholder?: string) => [
   SlashCommand,
   HorizontalRule,
   CodeBlockLowlight,
+  SearchAndReplace,
   Color,
   TextStyle,
   Placeholder.configure({ placeholder: () => placeholder ?? 'Type something...' }),

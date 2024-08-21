@@ -5,6 +5,7 @@ import { BubbleMenu } from './components/bubble-menu'
 import './styles/index.css'
 import { cn } from '@/lib/utils'
 import { useLaEditor, UseLaEditorProps } from './hooks/use-la-editor'
+import SearchTopBar from './search-top-bar'
 
 export interface LaEditorProps extends UseLaEditorProps {
   value?: Content
@@ -30,6 +31,7 @@ export const LaEditor = React.forwardRef<LAEditorRef, LaEditorProps>(
       <div className={cn('la-editor-container', className)}>
         <EditorContent editor={editor} className={cn('la-editor', editorContentClassName)} />
         <BubbleMenu editor={editor} />
+        <SearchTopBar editor={editor} />
       </div>
     )
   },
