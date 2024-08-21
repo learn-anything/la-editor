@@ -1,7 +1,3 @@
-.la-editor div.tiptap p {
-  @apply text-[var(--la-font-size-regular)];
-}
-
 .la-editor .ProseMirror ol {
   @apply list-decimal;
 }
